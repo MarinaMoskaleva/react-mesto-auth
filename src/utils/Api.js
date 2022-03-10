@@ -1,9 +1,10 @@
-import {baseUrl, token} from './constants.js';
+import {baseUrl, token, baseUrlAuth} from './constants.js';
 
 class Api {
-    constructor(baseUrl, token) {
+    constructor(baseUrl, token, baseUrlAuth) {
         this._baseUrl = baseUrl;
         this._token = token;
+        this._baseUrlAuth = baseUrlAuth;
     }
 
     _getResponseData(res) {
@@ -111,8 +112,48 @@ class Api {
       })
       .then(this._getResponseData);
     }
+    register(email, password){
+      return fetch(`${this._baseUrlAuth}/signup`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "password": password,
+          "email": email
+        })
+      })
+      .then(this._getResponseData);
+    };
+
+    login(email, password){
+      return fetch(`${this._baseUrlAuth}/signin`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "password": password,
+          "email": email
+        })
+      })
+      .then(this._getResponseData);
+    };
+
+    getContent(token) {
+      return fetch(`${this._baseUrlAuth}/users/me`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      })
+      .then(res => res.json())
+      .then(data => data)
+    } 
 }
 
-const api = new Api(baseUrl, token);
+const api = new Api(baseUrl, token, baseUrlAuth);
 
 export default api;

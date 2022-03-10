@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { useHistory } from 'react-router-dom'; 
 import api from '../utils/Api.js'
 
-function Login({handleLogin}){
+function Login({handleLogin, authFall}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
@@ -23,12 +23,13 @@ function Login({handleLogin}){
                 localStorage.setItem('token', data.token);
                 setEmail('');
                 setPassword('');
-                handleLogin(email);
+                handleLogin(email, true);
                 history.push('/');
             }
         })
         .catch((err)=>{
-          console.log(err);
+            authFall();
+            console.log(err);
         });
     }
     return (

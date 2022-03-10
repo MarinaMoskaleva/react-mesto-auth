@@ -52,7 +52,11 @@ function Register({onRegSubmit}){
                 </label>
             </form>
             <button className="popup__button popup__button_dark" onClick={handleSubmit} type="submit">Зарегистрироваться</button>
-            <Link to="/sign-in" className="sign__link">Уже зарегистрированы? Войти</Link>
+            <div className="sign__caption">
+                <p className="sign__caption-text">Уже зарегистрированы?</p>
+                <Link to="/sign-in" className="sign__caption-link">Войти</Link>
+            </div>
+            
         </div>
     );
 }

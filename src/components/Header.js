@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Header({text, link, email=''}) {
+function Header({text, link, email='', handleLogin=()=>{}}) {
     function onSignOut(e){
         if (localStorage.getItem('token')){
             localStorage.removeItem('token');
+            handleLogin(email, false);
         }
     }
 

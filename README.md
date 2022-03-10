@@ -19,7 +19,7 @@
 - React
 
 ### Инструкция для запуска
-- Клонируйте проект ```git clone https://github.com/MarinaMoskaleva/mesto-react.git```.
+- Клонируйте проект ```git clone https://github.com/MarinaMoskaleva/react-mesto-auth.git```.
 - Установите зависимости из package.json.
 - Для локального запуска введите команду ```npm run start```.
 - Для сборки проекта введите команду ```npm run build```.

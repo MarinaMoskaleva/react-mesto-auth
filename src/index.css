@@ -53,4 +53,6 @@
 @import url(./blocks/popup-image/__image/popup-image__image.css);
 @import url(./blocks/popup-image/__caption/popup-image__caption.css);
 @import url(./blocks/sign/sign.css);
-@import url(./blocks/sign/__link/sign__link.css);
+@import url(./blocks/sign/__caption/sign__caption.css);
+@import url(./blocks/sign/__caption-link/sign__caption-link.css);
+@import url(./blocks/sign/__caption-text/sign__caption-text.css);

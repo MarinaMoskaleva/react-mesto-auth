@@ -30,6 +30,23 @@ function App() {
   const [email, setEmail] = useState('');
   const [dataInfoTooltip, setDataInfoTooltip] = useState({ text: '', image: '' });
   const history = useHistory();
+
+  function tokenCheck () {
+    const jwt = localStorage.getItem('token');
+    if (jwt){
+      api.getContent(jwt)
+      .then((res) => {
+        if (res){
+          setEmail(res.data.email);
+          setLoggedIn(true);
+          history.push('/');
+        }
+      })
+      .catch((err)=>{
+        console.log(err);
+      });
+    }
+  }
   
   useEffect(() => {
     Promise.all([api.getUser(), api.getInitialCards()])
@@ -41,22 +58,8 @@ function App() {
       console.log(err);
     });
 
-    function tokenCheck () {
-      if (localStorage.getItem('token')){
-        const jwt = localStorage.getItem('token');
-        api.getContent(jwt)
-        .then((res) => {
-          if (res){
-            setEmail(res.data.email);
-            setLoggedIn(true);
-            history.push('/');
-          }
-        }); 
-      }
-    }
-    
     tokenCheck();
-  },[history]);
+  },[]);
 
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
@@ -136,6 +139,11 @@ function App() {
         });
   }
 
+  function authFall() {
+    setInfoTooltipOpen(true);
+    setDataInfoTooltip({ text: 'Что-то пошло не так! Попробуйте ещё раз', image: regFall });
+  }
+
   function handleRegSubmit(email, password) {
     api.register(email, password)
         .then((data)=>{
@@ -150,9 +158,9 @@ function App() {
         });
   }
 
-  function handleLogin(email) {
-    setLoggedIn(true);
-    setEmail(email)
+  function handleLogin(email, logState) {
+    setLoggedIn(logState);
+    setEmail(email);
   }
 
   return (
@@ -165,7 +173,7 @@ function App() {
           </Route>
           <Route path="/sign-in">
             <Header text='Регистрация' link='/sign-up'/>
-            <Login handleLogin={handleLogin}/>
+            <Login handleLogin={handleLogin} authFall={authFall}/>
           </Route>
           <ProtectedRoute 
               path="/" 
@@ -178,6 +186,7 @@ function App() {
               onCardLike={handleCardLike} 
               onCardDelete={handleCardDelete} 
               email={email}
+              handleLogin={handleLogin}
               component={MainPage}
           />
         </Switch>

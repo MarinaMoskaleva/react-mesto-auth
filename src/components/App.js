@@ -139,7 +139,6 @@ function App() {
   function handleRegSubmit(email, password) {
     api.register(email, password)
         .then((data)=>{
-          console.log('data', data);
           setInfoTooltipOpen(true);
           setDataInfoTooltip({ text: 'Вы успешно зарегистрировались', image: regDone });
           history.push('/sign-in');

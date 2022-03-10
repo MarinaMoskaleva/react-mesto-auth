@@ -23,7 +23,6 @@ function Login({handleLogin}){
                 localStorage.setItem('token', data.token);
                 setEmail('');
                 setPassword('');
-                console.log('token',data.token);
                 handleLogin(email);
                 history.push('/');
             }

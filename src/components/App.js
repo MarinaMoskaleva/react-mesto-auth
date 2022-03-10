@@ -139,10 +139,10 @@ function App() {
   function handleRegSubmit(email, password) {
     api.register(email, password)
         .then((data)=>{
-          console.log(data);
+          console.log('data', data);
           setInfoTooltipOpen(true);
           setDataInfoTooltip({ text: 'Вы успешно зарегистрировались', image: regDone });
-          history.push('/');
+          history.push('/sign-in');
         })
         .catch((err)=>{
           console.log(err);
@@ -155,8 +155,6 @@ function App() {
     setLoggedIn(true);
     setEmail(email)
   }
-
-  
 
   return (
     <div className='root'>
